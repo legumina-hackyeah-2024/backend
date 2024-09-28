@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument, Types } from 'mongoose';
 import { UserType } from '../enums/user-type.enum';
 import { UserAuthType } from '../enums/user-auth-type.enum';
+import { RouteStatus } from '../enums/route-status.enum';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -44,6 +45,17 @@ export class User {
 
   @Prop({ type: [mongoose.Types.ObjectId], ref: 'Badge', default: [] })
   badges: mongoose.Types.ObjectId[];
+
+  @Prop({
+    raw: [
+      {
+        routeId: { type: String },
+        status: { type: RouteStatus },
+        currentPointIdx: { type: Number },
+      }
+    ]
+  })
+  progressOfRoutes: { routeId: string, status: RouteStatus, currentPointIdx: number }[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

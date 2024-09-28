@@ -14,6 +14,12 @@ export class PointModel {
 
   @Field(() => Number)
   lng: number
+
+  @Field(() => String)
+  question: string
+
+  @Field(() => [String])
+  answers: string[]
 }
 
 @ObjectType('')

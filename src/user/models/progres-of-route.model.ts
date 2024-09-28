@@ -6,13 +6,13 @@ import { PointModel, RoutesModel } from 'src/routes/models/routes.model';
 import { RouteStatus } from '../enums/route-status.enum';
 
 @ObjectType()
-export class ProgresOfRouteModel {
+export class ProgressOfRouteModel {
+  @Field(() => String)
+  routeId: string;
+
+  @Field(() => Number)
+  currentPointIdx: number
+
   @Field(() => RouteStatus)
   status: RouteStatus;
-
-  // @Field(() => UserType)
-  // route: RoutesModel;
-
-  // @Field(() => UserAuthType)
-  // currentPoint: PointModel;
 }

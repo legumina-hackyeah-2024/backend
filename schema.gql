@@ -13,12 +13,23 @@ type BadgeModel {
   picture: String!
 }
 
+type ProgressOfRouteModel {
+  routeId: String!
+  currentPointIdx: Float!
+  status: RouteStatus!
+  route: RoutesModel!
+  currentPoint: PointModel!
+}
+
+enum RouteStatus {
+  InProgress
+  Completed
+}
+
 type UserModel {
   id: String!
   username: String!
   email: String!
-  firstName: String!
-  lastName: String!
   picture: String
   type: UserType!
   authType: [UserAuthType!]!
@@ -26,6 +37,8 @@ type UserModel {
   distance: Float!
   time: String!
   completedRoutes: Float!
+  progressOfRoutes: [ProgressOfRouteModel!]!
+  progressOfRoute(input: ProgresOfRouteInput!): ProgressOfRouteModel
 }
 
 enum UserType {
@@ -38,11 +51,17 @@ enum UserAuthType {
   Local
 }
 
+input ProgresOfRouteInput {
+  routeId: String!
+}
+
 type PointModel {
   title: String!
   description: String!
   lat: Float!
   lng: Float!
+  question: String!
+  answers: [String!]!
 }
 
 type RoutesModel {
@@ -91,6 +110,7 @@ type Mutation {
   authGoogleLogin(input: GoogleAuthInput!): AuthSignInResponse!
   authRegister(input: AuthRegisterInput!): UserModel!
   authLogin(input: AuthLoginInput!): AuthSignInResponse!
+  answer(input: AnswerInput!): UserModel!
   badge(input: BadgeInput!): BadgeModel!
 }
 
@@ -111,4 +131,10 @@ input AuthRegisterInput {
 input AuthLoginInput {
   email: String!
   password: String!
+}
+
+input AnswerInput {
+  routeId: String!
+  pointIdx: Float!
+  answerIdx: Float!
 }

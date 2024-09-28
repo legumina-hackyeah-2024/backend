@@ -4,7 +4,7 @@ import { UserDocument, User } from './schemas/user.schema';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly repository: UserRepository) {}
+  constructor(private readonly repository: UserRepository) { }
 
   async create(input: Partial<UserDocument>): Promise<User> {
     return this.repository.create(input);
@@ -36,5 +36,9 @@ export class UserService {
 
   async deleteOneById(id: string): Promise<User> {
     return this.repository.deleteOneById(id);
+  }
+
+  async updateProgressOfRoute(userId: string, routeId: string, pointIdx: number): Promise<User> {
+    return this.repository.updateProgressOfRoute(userId, routeId, pointIdx);
   }
 }

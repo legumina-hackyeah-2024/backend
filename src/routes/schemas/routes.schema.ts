@@ -41,7 +41,10 @@ export class Routes {
         title: { type: String },
         description: { type: String },
         lat: { type: Number },
-        lng: { type: Number }
+        lng: { type: Number },
+        question: { type: String },
+        answers: { type: [String] },
+        correctAnswerIdx: { type: Number }
       }
     ]
   })
@@ -49,7 +52,10 @@ export class Routes {
     title: string,
     description: string,
     lat: number,
-    lng: number
+    lng: number,
+    question: string,
+    answers: string[]
+    correctAnswerIdx: number
   }[]
 }
 

@@ -4,12 +4,12 @@ import { RoutesRepository } from './routes.repository';
 import { Routes, RoutesSchema } from './schemas/routes.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { RoutesResolver } from './routes.resolver';
-
+import { ProgressOfRouteResolver } from './progress-of-route.resolver';
 @Module({
-imports: [
-    MongooseModule.forFeature([{ name: Routes.name, schema: RoutesSchema }]),
+    imports: [
+        MongooseModule.forFeature([{ name: Routes.name, schema: RoutesSchema }]),
     ],
-    providers: [RoutesService, RoutesRepository, RoutesResolver],
+    providers: [RoutesService, RoutesRepository, RoutesResolver, ProgressOfRouteResolver],
     exports: [RoutesService],
 })
-export class RoutesModule {}
+export class RoutesModule { }

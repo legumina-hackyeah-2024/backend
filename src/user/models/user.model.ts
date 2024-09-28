@@ -2,6 +2,8 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { UserType } from '../enums/user-type.enum';
 import { UserAuthType } from '../enums/user-auth-type.enum';
 import { BadgeModel } from 'src/badge/models/badge.model';
+import { RouteStatus } from '../enums/route-status.enum';
+import { ProgressOfRouteModel } from './progres-of-route.model';
 
 @ObjectType()
 export class UserModel {
@@ -13,12 +15,6 @@ export class UserModel {
 
   @Field()
   email: string;
-
-  @Field()
-  firstName: string;
-
-  @Field()
-  lastName: string;
 
   @Field({ nullable: true })
   picture: string;
@@ -40,4 +36,8 @@ export class UserModel {
 
   @Field()
   completedRoutes: number;
+
+  @Field(() => [ProgressOfRouteModel])
+  progressOfRoutes: ProgressOfRouteModel[];
 }
+

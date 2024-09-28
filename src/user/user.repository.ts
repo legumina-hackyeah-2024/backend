@@ -4,12 +4,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 import { User, UserDocument } from './schemas/user.schema';
 import { UserNotFoundError } from './errors/user-not-found.error';
+import { Routes } from 'src/routes/schemas/routes.schema';
+import { RouteStatus } from './enums/route-status.enum';
 
 @Injectable()
 export class UserRepository {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
-  ) {}
+  ) { }
 
   async create(input: Partial<UserDocument>): Promise<User> {
     return this.userModel.create(input);
@@ -75,5 +77,20 @@ export class UserRepository {
 
   async deleteOneById(id: string): Promise<User> {
     return this.userModel.findByIdAndDelete(id);
+  }
+
+  async updateProgressOfRoute(userId: string, routeId: string, pointIdx: number): Promise<User> {
+    const u = await this.userModel.findOneAndUpdate(
+      { _id: userId, 'progressOfRoutes.routeId': routeId },
+      {
+        $set: {
+          'progressOfRoutes.$.currentPointIdx': pointIdx + 1,
+        },
+      }
+    );
+
+    console.log(u)
+
+    return u;
   }
 }
