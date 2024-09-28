@@ -16,12 +16,6 @@ export class User {
   username: string;
 
   @Prop({ type: String })
-  firstName: string;
-
-  @Prop({ type: String })
-  lastName: string;
-
-  @Prop({ type: String })
   picture: string;
 
   @Prop({ type: String, required: false })

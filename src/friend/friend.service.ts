@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { FriendRepository } from './friend.repository';
 import { FriendNotFoundError } from './errors/friend-not-found.error';
 import { UserService } from 'src/user/user.service';
-import { FriendCannotDecideOwnRequest } from './errors/friend-can-not-decide-own-request.error';
 
 @Injectable()
 export class FriendService {

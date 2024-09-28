@@ -36,8 +36,6 @@ export class AuthService {
     const userParsed: Partial<User> = {
       username: input.username,
       email: input.email,
-      firstName: input.firstName,
-      lastName: input.lastName,
       hash: await bcryptHash(input.password, this.config.getSaltRounds()),
       authType: [UserAuthType.Local],
     };
@@ -83,10 +81,7 @@ export class AuthService {
       const createUserPayload = {
         username,
         email,
-        name,
-        surname,
         hash,
-        personal: { name: name, surname: surname },
         lastActivityAt: new Date(),
       };
       const user = await this.userService.create(createUserPayload);

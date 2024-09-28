@@ -121,8 +121,6 @@ input AuthRegisterInput {
   email: String!
   username: String!
   password: String!
-  firstName: String!
-  lastName: String!
 }
 
 input AuthLoginInput {

@@ -14,11 +14,4 @@ export class AuthRegisterInput {
   @Field()
   @IsString()
   password: string;
-
-  @Field()
-  @IsString()
-  firstName: string;
-
-  @Field()
-  lastName: string;
 }
