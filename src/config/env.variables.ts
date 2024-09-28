@@ -54,14 +54,6 @@ export class EnvironmentVariables {
 
   @IsString()
   @IsNotEmpty()
-  MG_HOST: string;
-
-  @IsString()
-  @IsNotEmpty()
-  MG_API_KEY: string;
-
-  @IsString()
-  @IsNotEmpty()
   GOOGLE_CLIENT_ID: string;
 
   @IsString()
@@ -71,18 +63,6 @@ export class EnvironmentVariables {
   @IsString()
   @IsNotEmpty()
   GOOGLE_REDIRECT_URI: string;
-
-  @IsString()
-  @IsNotEmpty()
-  FACEBOOK_APP_ID: string;
-
-  @IsString()
-  @IsNotEmpty()
-  FACEBOOK_APP_SECRET: string;
-
-  @IsString()
-  @IsNotEmpty()
-  FACEBOOK_REDIRECT_URI: string;
 }
 
 export function validate(config: Record<string, unknown>) {
