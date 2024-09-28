@@ -6,8 +6,8 @@ import { AuthGuard } from '@nestjs/passport';
 import { decode } from 'jsonwebtoken';
 
 import { IS_PUBLIC_KEY } from '../../common/decorators/public.decorator';
-import { UnauthenticatedError } from '../../common/errors/unauthenticated.error';
 import { UserType } from '../../user/enums/user-type.enum';
+import { UnauthenticatedError } from 'src/common/errors/unauthenticated.error';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
@@ -34,17 +34,9 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       }
       return true;
     }
+
     try {
       if (await super.canActivate(new ExecutionContextHost([req]))) {
-        if (req.headers.authorization !== undefined) {
-          const { userId, userType } = decode(
-            req.headers.authorization.split(' ')[1],
-          ) as {
-            userId: string;
-            userType: UserType;
-          };
-          req.user = { id: userId, userType };
-        }
         const userTypes = this.reflector.get<UserType[]>(
           'userTypes',
           context.getHandler(),

@@ -7,14 +7,24 @@ type AuthSignInResponse {
   refreshToken: String!
 }
 
+type BadgeModel {
+  id: String!
+  name: String!
+  picture: String!
+}
+
 type UserModel {
   id: String!
   email: String!
   firstName: String!
   lastName: String!
-  picture: String!
+  picture: String
   type: UserType!
   authType: [UserAuthType!]!
+  badges: [BadgeModel!]!
+  distance: Float!
+  time: String!
+  completedRoutes: Float!
 }
 
 enum UserType {
@@ -48,22 +58,24 @@ type RoutesModel {
   points: [PointModel!]!
 }
 
-type BadgeModel {
+type HeroModel {
   id: String!
 }
 
 type Query {
   hello: String!
+  userMe: UserModel!
+  badges(input: BadgeInput!): BadgeModel!
   routes: [RoutesModel!]!
   route(input: RoutesInput!): RoutesModel!
-  badges(input: BadgeInput!): BadgeModel!
-}
-
-input RoutesInput {
-  id: String
+  heros: [HeroModel!]!
 }
 
 input BadgeInput {
+  id: String
+}
+
+input RoutesInput {
   id: String
 }
 

@@ -8,6 +8,7 @@ import { AuthConfig } from 'src/config/auth.config';
 import { AuthSignInResponse } from './response/auth-sign-in.response';
 import { AuthRegisterInput } from './inputs/auth-register.input';
 import { AuthLoginInput } from './inputs/auth-login.input';
+import { UserAuthType } from 'src/user/enums/user-auth-type.enum';
 
 @Injectable()
 export class AuthService {
@@ -31,6 +32,7 @@ export class AuthService {
       firstName: input.firstName,
       lastName: input.lastName,
       hash: await bcryptHash(input.password, this.config.getSaltRounds()),
+      authType: [UserAuthType.Local],
     };
     return this.userService.create(userParsed);
   }

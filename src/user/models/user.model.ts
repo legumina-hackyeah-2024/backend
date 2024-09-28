@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { UserType } from '../enums/user-type.enum';
 import { UserAuthType } from '../enums/user-auth-type.enum';
+import { BadgeModel } from 'src/badge/models/badge.model';
 
 @ObjectType()
 export class UserModel {
@@ -16,7 +17,7 @@ export class UserModel {
   @Field()
   lastName: string;
 
-  @Field()
+  @Field({ nullable: true })
   picture: string;
 
   @Field(() => UserType)
@@ -24,4 +25,16 @@ export class UserModel {
 
   @Field(() => [UserAuthType])
   authType: UserAuthType[];
+
+  @Field(() => [BadgeModel])
+  badges: BadgeModel[];
+
+  @Field()
+  distance: number;
+
+  @Field()
+  time: string;
+
+  @Field()
+  completedRoutes: number;
 }
