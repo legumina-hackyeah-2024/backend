@@ -23,6 +23,7 @@ type UserModel {
   badges: [BadgeModel!]!
   distance: Float!
   time: String!
+  completedRoutes: Float!
 }
 
 enum UserType {
@@ -48,12 +49,17 @@ type RoutesModel {
   lng: Float!
 }
 
+type HeroModel {
+  id: String!
+}
+
 type Query {
   hello: String!
   userMe: UserModel!
   badges(input: BadgeInput!): BadgeModel!
   routes: [RoutesModel!]!
   route(input: RoutesInput!): RoutesModel!
+  heros: [HeroModel!]!
 }
 
 input BadgeInput {
