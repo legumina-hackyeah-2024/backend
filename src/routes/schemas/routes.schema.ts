@@ -9,6 +9,9 @@ export class Routes {
   _id: Types.ObjectId;
 
   @Prop({ type: String })
+  heroId: string;
+
+  @Prop({ type: String })
   title: string;
 
   @Prop({ type: String })

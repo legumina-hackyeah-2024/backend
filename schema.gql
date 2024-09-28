@@ -46,6 +46,7 @@ type PointModel {
 
 type RoutesModel {
   id: String!
+  heroId: String!
   title: String!
   description: String!
   icon: String!
@@ -56,10 +57,14 @@ type RoutesModel {
   lat: Float!
   lng: Float!
   points: [PointModel!]!
+  hero: HeroModel!
 }
 
 type HeroModel {
   id: String!
+  name: String!
+  description: String!
+  picture: String!
 }
 
 type Query {
