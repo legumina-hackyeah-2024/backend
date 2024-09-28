@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 import { User, UserDocument } from './schemas/user.schema';
+import { UserNotFoundError } from './errors/user-not-found.error';
 
 @Injectable()
 export class UserRepository {
@@ -12,6 +13,19 @@ export class UserRepository {
 
   async create(input: Partial<UserDocument>): Promise<User> {
     return this.userModel.create(input);
+  }
+
+  async addBadge(userId: string, badgeId: string): Promise<User> {
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      throw new UserNotFoundError();
+    }
+    if (user.badges.includes(new Types.ObjectId(badgeId))) {
+      throw new Error('Badge already exists');
+    }
+
+    user.badges.push(new Types.ObjectId(badgeId));
+    return user.save();
   }
 
   async upsert(entity: Partial<UserDocument>): Promise<User> {

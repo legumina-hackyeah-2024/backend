@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import mongoose, { HydratedDocument, Types } from 'mongoose';
 import { UserType } from '../enums/user-type.enum';
 import { UserAuthType } from '../enums/user-auth-type.enum';
 
@@ -38,6 +38,9 @@ export class User {
     enum: UserAuthType,
   })
   authType: UserAuthType[];
+
+  @Prop({ type: [mongoose.Types.ObjectId], ref: 'Badge', default: [] })
+  badges: mongoose.Types.ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

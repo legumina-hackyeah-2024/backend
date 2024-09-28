@@ -14,6 +14,10 @@ export class UserService {
     return this.repository.upsert(input);
   }
 
+  async addBadge(userId: string, badgeId: string): Promise<User> {
+    return this.repository.addBadge(userId, badgeId);
+  }
+
   async findOneByEmail(email: string): Promise<User> {
     return this.repository.findOneByEmail(email);
   }
