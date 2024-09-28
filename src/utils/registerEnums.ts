@@ -8,11 +8,15 @@ import { UserAuthType } from 'src/user/enums/user-auth-type.enum';
 import { GraphqlBadgeErrors } from 'src/badge/errors/graphql-badge-errors';
 import { GraphqlUserErrors } from 'src/user/errors/graphql-user-errors';
 import { RouteStatus } from 'src/user/enums/route-status.enum';
+import { FriendRequestStatus } from 'src/friend/friend-request.status';
+import { GraphqlFriendErrors } from 'src/friend/errors/graphql-friend-errors';
+
 export const Errors = {
   ...GraphqlCommonErrors,
   ...GraphqlAuthErrors,
   ...GraphqlUserErrors,
   ...GraphqlBadgeErrors,
+  ...GraphqlFriendErrors,
 };
 
 export const registerEnums = () => {
@@ -21,4 +25,5 @@ export const registerEnums = () => {
   registerEnumType(Environment, { name: 'Environment' });
   registerEnumType(UserAuthType, { name: 'UserAuthType' });
   registerEnumType(RouteStatus, { name: 'RouteStatus' });
+  registerEnumType(FriendRequestStatus, { name: 'FriendRequestStatus' });
 };

@@ -25,14 +25,17 @@ export class AuthService {
 
   async register(input: AuthRegisterInput): Promise<User> {
     const user = await this.userService.findOneByEmail(input.email);
-    if (user) {
-      throw new UnauthorizedException('User with this email already exists');
+    const userByUsername = await this.userService.findOneByUsername(
+      input.username,
+    );
+    if (user || userByUsername) {
+      throw new UnauthorizedException(
+        'User with this email/username already exists',
+      );
     }
     const userParsed: Partial<User> = {
       username: input.username,
       email: input.email,
-      firstName: input.firstName,
-      lastName: input.lastName,
       hash: await bcryptHash(input.password, this.config.getSaltRounds()),
       authType: [UserAuthType.Local],
     };
@@ -60,6 +63,15 @@ export class AuthService {
     username?: string,
   ) {
     const existUser = await this.userService.findOneByEmail(email);
+    if (username) {
+      const existUserByUsername =
+        await this.userService.findOneByUsername(username);
+      if (existUserByUsername) {
+        throw new UnauthorizedException(
+          'User with this username already exists',
+        );
+      }
+    }
     if (!existUser && !username) {
       throw new AuthUsernameNotProvidedError();
     }
@@ -69,10 +81,7 @@ export class AuthService {
       const createUserPayload = {
         username,
         email,
-        name,
-        surname,
         hash,
-        personal: { name: name, surname: surname },
         lastActivityAt: new Date(),
       };
       const user = await this.userService.create(createUserPayload);

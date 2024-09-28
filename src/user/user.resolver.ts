@@ -87,4 +87,9 @@ export class UserResolver {
 
     return route ?? null;
   }
+
+  @ResolveField()
+  async friends(@Parent() user: any) {
+    return this.userService.getFriends(user._id.toString());
+  }
 }
