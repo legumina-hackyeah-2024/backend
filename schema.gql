@@ -67,6 +67,7 @@ type HeroModel {
   name: String!
   description: String!
   picture: String!
+  excerpt: String!
 }
 
 type Query {

@@ -15,6 +15,9 @@ export class HeroModel {
   @Field(() => String)
   picture: string
 
+  @Field(() => String)
+  excerpt: string
+
   constructor(input: HeroDocument | HeroModel) {
     Object.assign(this, {
       ...((input as any)._doc ? (input as HeroDocument).toObject({ virtuals: true }) : input),

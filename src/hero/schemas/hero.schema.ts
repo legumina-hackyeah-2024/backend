@@ -15,6 +15,9 @@ export class Hero {
 
   @Prop({ type: String })
   picture: string;
+
+  @Prop({ type: String })
+  excerpt: string;
 }
 
 export const HeroSchema = SchemaFactory.createForClass(Hero);
