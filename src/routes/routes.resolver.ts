@@ -12,7 +12,11 @@ export class RoutesResolver {
   @Public()
   @Query(() => [RoutesModel], { name: 'routes' })
   async route() {
-    return this.routesService.findAll();
+    const x = await this.routesService.findAll();
+
+    console.log(x);
+
+    return x;
   }
 
   @Public()
