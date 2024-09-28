@@ -22,4 +22,8 @@ export class BadgeService {
     }
     return badge;
   }
+
+  async findAllById(ids: string[]): Promise<Badge[]> {
+    return this.repository.findAllById(ids);
+  }
 }

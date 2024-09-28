@@ -16,4 +16,8 @@ export class BadgeRepository {
   async findOneById(id: string): Promise<Badge | null> {
     return this.badgeModel.findById(id);
   }
+
+  async findAllById(ids: string[]): Promise<Badge[]> {
+    return this.badgeModel.find({ _id: { $in: ids } });
+  }
 }

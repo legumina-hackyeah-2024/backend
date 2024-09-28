@@ -5,6 +5,7 @@ import {
   PipeTransform,
   createParamDecorator,
 } from '@nestjs/common';
+import { GqlExecutionContext } from '@nestjs/graphql';
 
 import { UserInjectService } from 'src/user-inject/user.inject.service';
 
@@ -21,7 +22,7 @@ export class GetUserDataPipe implements PipeTransform {
 
 export const GetUser = createParamDecorator(
   (_data: unknown, ctx: ExecutionContext) => {
-    const req = ctx.switchToHttp().getRequest();
+    const { req } = GqlExecutionContext.create(ctx).getContext();
     return req?.user?.id ?? undefined;
   },
 );

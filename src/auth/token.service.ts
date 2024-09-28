@@ -37,7 +37,7 @@ export class TokenService {
         tokenType: TokenType.Session,
         userType,
       },
-      { expiresIn: '1h' },
+      { expiresIn: '7d' },
     );
   }
 
@@ -59,7 +59,9 @@ export class TokenService {
     );
   }
 
-  async generatePasswordResetToken(userId: string): Promise<{token: string, id: string}> {
+  async generatePasswordResetToken(
+    userId: string,
+  ): Promise<{ token: string; id: string }> {
     const token = this.jwtService.sign(
       {
         userId,
@@ -75,11 +77,13 @@ export class TokenService {
       hash: await bcryptHash(token, this.config.getSaltRounds()),
       tokenType: TokenType.ResetPassword,
     });
-    
+
     return { token, id: createdToken._id.toString() };
   }
 
-  async generateVerifyAccountToken(userId: string): Promise<{token: string, id: string}> {
+  async generateVerifyAccountToken(
+    userId: string,
+  ): Promise<{ token: string; id: string }> {
     const token = this.jwtService.sign(
       {
         userId,
@@ -95,14 +99,14 @@ export class TokenService {
       hash: await bcryptHash(token, this.config.getSaltRounds()),
       tokenType: TokenType.AccountConfirmation,
     });
-    
+
     return { token, id: createdToken._id.toString() };
   }
 
   async decodeToken(token: string) {
     return this.jwtService.decode(token);
   }
-  
+
   async invalidateToken(tokenId: string): Promise<void> {
     await this.tokenModel.updateOne({ _id: tokenId }, { usedAt: new Date() });
   }
