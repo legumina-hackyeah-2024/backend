@@ -27,15 +27,25 @@ enum UserAuthType {
   Local
 }
 
+type PointModel {
+  title: String!
+  description: String!
+  lat: Float!
+  lng: Float!
+}
+
 type RoutesModel {
   id: String!
   title: String!
   description: String!
   icon: String!
+
+  """Distance in kilometers"""
   distance: Float!
   difficulty: Int!
   lat: Float!
   lng: Float!
+  points: [PointModel!]!
 }
 
 type BadgeModel {

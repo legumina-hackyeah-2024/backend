@@ -2,6 +2,21 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { RoutesDocument } from '../schemas/routes.schema';
 
 @ObjectType('')
+export class PointModel {
+  @Field(() => String)
+  title: string;
+
+  @Field(() => String)
+  description: string;
+
+  @Field(() => Number)
+  lat: number
+
+  @Field(() => Number)
+  lng: number
+}
+
+@ObjectType('')
 export class RoutesModel {
   @Field(() => String)
   id: string;
@@ -26,6 +41,9 @@ export class RoutesModel {
 
   @Field(() => Number)
   lng: number
+
+  @Field(() => [PointModel])
+  points: PointModel[]
 
   constructor(input: RoutesDocument | RoutesModel) {
     Object.assign(this, {

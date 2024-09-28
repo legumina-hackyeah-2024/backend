@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
+import { title } from 'process';
 
 export type RoutesDocument = HydratedDocument<Routes>;
 
@@ -27,6 +28,23 @@ export class Routes {
 
   @Prop({ type: Number })
   lng: number
+
+  @Prop({
+    raw: [
+      {
+        title: { type: String },
+        description: { type: String },
+        lat: { type: Number },
+        lng: { type: Number }
+      }
+    ]
+  })
+  points: {
+    title: string,
+    description: string,
+    lat: number,
+    lng: number
+  }[]
 }
 
 export const RoutesSchema = SchemaFactory.createForClass(Routes);
