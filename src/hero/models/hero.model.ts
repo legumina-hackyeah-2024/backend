@@ -3,8 +3,17 @@ import { HeroDocument } from '../schemas/hero.schema';
 
 @ObjectType('')
 export class HeroModel {
-  @Field(()=>String)
+  @Field(() => String)
   id: string;
+
+  @Field(() => String)
+  name: string
+
+  @Field(() => String)
+  description: string
+
+  @Field(() => String)
+  picture: string
 
   constructor(input: HeroDocument | HeroModel) {
     Object.assign(this, {

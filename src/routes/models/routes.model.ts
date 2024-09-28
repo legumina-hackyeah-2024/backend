@@ -22,6 +22,9 @@ export class RoutesModel {
   id: string;
 
   @Field(() => String)
+  heroId: string;
+
+  @Field(() => String)
   title: string;
 
   @Field(() => String)
