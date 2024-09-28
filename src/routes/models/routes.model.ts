@@ -3,8 +3,29 @@ import { RoutesDocument } from '../schemas/routes.schema';
 
 @ObjectType('')
 export class RoutesModel {
-  @Field(()=>String)
+  @Field(() => String)
   id: string;
+
+  @Field(() => String)
+  title: string;
+
+  @Field(() => String)
+  description: string;
+
+  @Field(() => String)
+  icon: string;
+
+  @Field(() => Number)
+  distance: number
+
+  @Field(() => Number)
+  difficulty: number
+
+  @Field(() => Number)
+  lat: number
+
+  @Field(() => Number)
+  lng: number
 
   constructor(input: RoutesDocument | RoutesModel) {
     Object.assign(this, {

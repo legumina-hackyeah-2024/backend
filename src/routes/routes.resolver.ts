@@ -10,7 +10,7 @@ export class RoutesResolver {
   constructor(private readonly routesService: RoutesService) { }
 
   @Public()
-  @Query(() => RoutesModel, { name: 'routess' })
+  @Query(() => RoutesModel, { name: 'routes' })
   async getRoutes(@Args(INPUT_KEY) input: RoutesInput) {
     return this.routesService.findById(input.id);
   }

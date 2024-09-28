@@ -5,17 +5,19 @@ import { DatabaseConfig } from './config/database.config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { ThrottlerConfig } from './config/throttler.config';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_GUARD, RouterModule } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { ApolloDriver } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AppResolver } from './app.resolver';
 import { ServerConfig } from './config/server.config';
 import { formatError } from './utils/formatError';
+import { RoutesModule } from './routes/routes.module';
 
 @Module({
   imports: [
     AuthModule,
+    RoutesModule,
     GraphQLModule.forRootAsync({
       imports: [ConfigModule],
       driver: ApolloDriver,
@@ -42,4 +44,4 @@ import { formatError } from './utils/formatError';
     { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],
 })
-export class AppModule {}
+export class AppModule { }

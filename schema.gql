@@ -27,8 +27,24 @@ enum UserAuthType {
   Local
 }
 
+type RoutesModel {
+  id: String!
+  title: String!
+  description: String!
+  icon: String!
+  distance: Float!
+  difficulty: Float!
+  lat: Float!
+  lng: Float!
+}
+
 type Query {
   hello: String!
+  routes(input: RoutesInput!): RoutesModel!
+}
+
+input RoutesInput {
+  id: String
 }
 
 type Mutation {
