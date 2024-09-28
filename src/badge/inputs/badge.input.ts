@@ -3,8 +3,8 @@ import { IsMongoId, IsOptional } from 'class-validator';
 
 @InputType()
 export class BadgeInput {
-    @Field({ nullable: true })
-    @IsMongoId()
-    @IsOptional()
-    id?: string;
+  @Field({ nullable: true })
+  @IsMongoId()
+  @IsOptional()
+  id?: string;
 }
