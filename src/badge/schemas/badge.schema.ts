@@ -9,6 +9,9 @@ export class Badge {
 
   @Prop({ type: String })
   name: string;
+
+  @Prop({ type: String })
+  picture: string;
 }
 
 export const BadgeSchema = SchemaFactory.createForClass(Badge);

@@ -10,6 +10,7 @@ type AuthSignInResponse {
 type BadgeModel {
   id: String!
   name: String!
+  picture: String!
 }
 
 type UserModel {
