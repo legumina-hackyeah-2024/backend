@@ -44,6 +44,9 @@ export class User {
 
   @Prop({ type: [mongoose.Types.ObjectId], ref: 'Badge', default: [] })
   badges: mongoose.Types.ObjectId[];
+
+  @Prop({ type: [mongoose.Types.ObjectId], ref: 'User', default: [] })
+  friends: mongoose.Types.ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -13,4 +13,4 @@ import { RoutesResolver } from './routes.resolver';
   providers: [HeroService, HeroRepository, HeroResolver, RoutesResolver],
   exports: [HeroService],
 })
-export class HeroModule { }
+export class HeroModule {}

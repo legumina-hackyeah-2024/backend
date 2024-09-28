@@ -23,6 +23,7 @@ type UserModel {
   type: UserType!
   authType: [UserAuthType!]!
   badges: [BadgeModel!]!
+  friends: [UserModel!]!
   distance: Float!
   time: String!
   completedRoutes: Float!
@@ -68,6 +69,19 @@ type HeroModel {
   picture: String!
 }
 
+type FriendRequestModel {
+  id: String!
+  status: FriendRequestStatus!
+  from: UserModel!
+  to: UserModel!
+}
+
+enum FriendRequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
 type Query {
   hello: String!
   userMe: UserModel!
@@ -75,6 +89,7 @@ type Query {
   routes: [RoutesModel!]!
   route(input: RoutesInput!): RoutesModel!
   heros: [HeroModel!]!
+  friendsRequests: [FriendRequestModel!]!
 }
 
 input BadgeInput {
@@ -90,6 +105,8 @@ type Mutation {
   authRegister(input: AuthRegisterInput!): UserModel!
   authLogin(input: AuthLoginInput!): AuthSignInResponse!
   badge(input: BadgeInput!): BadgeModel!
+  friendRequestSend(input: FriendRequestInput!): FriendRequestModel!
+  friendRequestDecision(input: FriendRequestDecisionInput!): FriendRequestModel!
 }
 
 input GoogleAuthInput {
@@ -109,4 +126,13 @@ input AuthRegisterInput {
 input AuthLoginInput {
   email: String!
   password: String!
+}
+
+input FriendRequestInput {
+  username: String!
+}
+
+input FriendRequestDecisionInput {
+  id: String!
+  decision: Boolean!
 }

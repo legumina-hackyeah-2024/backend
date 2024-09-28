@@ -16,31 +16,51 @@ export class BusinessError {
 }
 
 export class ValidationError extends BusinessError {
-  constructor(readonly message: string, readonly code: string, readonly details?: unknown) {
+  constructor(
+    readonly message: string,
+    readonly code: string,
+    readonly details?: unknown,
+  ) {
     super(message, code, BusinessErrorType.Validation, details);
   }
 }
 
 export class AuthenticationError extends BusinessError {
-  constructor(readonly message: string, readonly code: string, readonly details?: unknown) {
+  constructor(
+    readonly message: string,
+    readonly code: string,
+    readonly details?: unknown,
+  ) {
     super(message, code, BusinessErrorType.Authentication, details);
   }
 }
 
 export class NotFoundError extends BusinessError {
-  constructor(readonly message: string, readonly code: string, readonly details?: unknown) {
+  constructor(
+    readonly message: string,
+    readonly code: string,
+    readonly details?: unknown,
+  ) {
     super(message, code, BusinessErrorType.NotFound, details);
   }
 }
 
 export class ForbiddenError extends BusinessError {
-  constructor(readonly message: string, readonly code: string, readonly details?: unknown) {
+  constructor(
+    readonly message: string,
+    readonly code: string,
+    readonly details?: unknown,
+  ) {
     super(message, code, BusinessErrorType.Forbidden, details);
   }
 }
 
 export class InternalError extends BusinessError {
-  constructor(readonly message: string, readonly code: string, readonly details?: unknown) {
+  constructor(
+    readonly message: string,
+    readonly code: string,
+    readonly details?: unknown,
+  ) {
     super(message, code, BusinessErrorType.Internal, details);
   }
 }

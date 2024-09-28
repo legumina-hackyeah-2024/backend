@@ -14,6 +14,18 @@ export class UserService {
     return this.repository.upsert(input);
   }
 
+  async addFriend(userId: string, friendId: string) {
+    return this.repository.addFriend(userId, friendId);
+  }
+
+  async removeFriend(userId: string, friendId: string) {
+    return this.repository.removeFriend(userId, friendId);
+  }
+
+  async getFriends(userId: string): Promise<User[]> {
+    return this.repository.getFriends(userId);
+  }
+
   async addBadge(userId: string, badgeId: string): Promise<User> {
     return this.repository.addBadge(userId, badgeId);
   }
@@ -24,6 +36,14 @@ export class UserService {
 
   async findOneById(id: string): Promise<User> {
     return this.repository.findOneById(id);
+  }
+
+  async findOneByUsername(username: string): Promise<User> {
+    return this.repository.findOneByUsername(username);
+  }
+
+  async getOneByUsername(username: string) {
+    return this.repository.getOneByUsername(username);
   }
 
   async getOneById(id: string): Promise<User> {

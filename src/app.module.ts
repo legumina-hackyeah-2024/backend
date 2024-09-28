@@ -13,6 +13,7 @@ import { formatError } from './utils/formatError';
 import { RoutesModule } from './routes/routes.module';
 import { BadgeModule } from './badge/badge.module';
 import { HeroModule } from './hero/hero.module';
+import { FriendModule } from './friend/friend.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { HeroModule } from './hero/hero.module';
     RoutesModule,
     BadgeModule,
     HeroModule,
+    FriendModule,
     GraphQLModule.forRootAsync({
       imports: [ConfigModule],
       driver: ApolloDriver,

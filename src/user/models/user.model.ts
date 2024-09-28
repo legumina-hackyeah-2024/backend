@@ -32,6 +32,9 @@ export class UserModel {
   @Field(() => [BadgeModel])
   badges: BadgeModel[];
 
+  @Field(() => [UserModel])
+  friends: UserModel[];
+
   @Field()
   distance: number;
 

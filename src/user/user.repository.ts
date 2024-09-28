@@ -49,6 +49,10 @@ export class UserRepository {
     return upsertedDocument;
   }
 
+  async findOneByUsername(username: string): Promise<User> {
+    return this.userModel.findOne({ username });
+  }
+
   async findOneByEmail(email: string): Promise<User> {
     return this.userModel.findOne({ email });
   }
@@ -73,7 +77,49 @@ export class UserRepository {
     return user;
   }
 
+  async getOneByUsername(username: string): Promise<User> {
+    const user = await this.userModel.findOne({ username });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return user;
+  }
+
   async deleteOneById(id: string): Promise<User> {
     return this.userModel.findByIdAndDelete(id);
+  }
+
+  async addFriend(userId: string, friendId: string) {
+    await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      {
+        $push: { friends: friendId },
+      },
+    );
+    await this.userModel.findOneAndUpdate(
+      { _id: friendId },
+      {
+        $push: { friends: userId },
+      },
+    );
+  }
+
+  async removeFriend(userId: string, friendId: string): Promise<User> {
+    await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { friends: friendId } },
+    );
+    return this.userModel.findOneAndUpdate(
+      { _id: friendId },
+      { $pull: { friends: userId } },
+    );
+  }
+
+  async getFriends(userId: string): Promise<User[]> {
+    const user = await this.userModel.findById(userId);
+    const friends = await this.userModel.find({
+      _id: { $in: user.friends },
+    });
+    return friends;
   }
 }

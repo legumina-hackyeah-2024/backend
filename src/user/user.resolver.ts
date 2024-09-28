@@ -44,4 +44,9 @@ export class UserResolver {
     //TODO: calculate it somehow???
     return 0;
   }
+
+  @ResolveField()
+  async friends(@Parent() user: any) {
+    return this.userService.getFriends(user._id.toString());
+  }
 }

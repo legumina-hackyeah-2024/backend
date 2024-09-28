@@ -25,8 +25,13 @@ export class AuthService {
 
   async register(input: AuthRegisterInput): Promise<User> {
     const user = await this.userService.findOneByEmail(input.email);
-    if (user) {
-      throw new UnauthorizedException('User with this email already exists');
+    const userByUsername = await this.userService.findOneByUsername(
+      input.username,
+    );
+    if (user || userByUsername) {
+      throw new UnauthorizedException(
+        'User with this email/username already exists',
+      );
     }
     const userParsed: Partial<User> = {
       username: input.username,
@@ -60,6 +65,15 @@ export class AuthService {
     username?: string,
   ) {
     const existUser = await this.userService.findOneByEmail(email);
+    if (username) {
+      const existUserByUsername =
+        await this.userService.findOneByUsername(username);
+      if (existUserByUsername) {
+        throw new UnauthorizedException(
+          'User with this username already exists',
+        );
+      }
+    }
     if (!existUser && !username) {
       throw new AuthUsernameNotProvidedError();
     }
