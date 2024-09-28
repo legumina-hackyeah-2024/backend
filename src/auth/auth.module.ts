@@ -11,6 +11,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthConfig } from 'src/config/auth.config';
 import { UserInjectModule } from 'src/user-inject/user-inject.module';
 import { AuthResolver } from './auth.resolver';
+import { AuthController } from './auth.controller';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { AuthResolver } from './auth.resolver';
       inject: [AuthConfig],
     }),
   ],
+  controllers: [AuthController],
   providers: [
     AuthService,
     GoogleStrategy,
