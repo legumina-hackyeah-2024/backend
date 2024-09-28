@@ -12,6 +12,7 @@ import { RoutesService } from 'src/routes/routes.service';
 import { PointIsNotAvailableYetError } from './errors/point-is-not-available-yet.error';
 import { InvalidPointIndexError } from './errors/invalid-point-index.error copy';
 import { AnswerIsNotCorrectError } from './errors/answer-is-not-correct.error';
+import { CompletedRouteModel } from 'src/routes/models/completed-route.model';
 
 @Resolver(() => UserModel)
 export class UserResolver {
@@ -34,7 +35,7 @@ export class UserResolver {
     const u = await this.userService.findOneById(user._id.toString());
 
     const progressOfRoute = u.progressOfRoutes?.find(({ routeId }) => routeId.toString() === args.routeId);
-    if (progressOfRoute.currentPointIdx && progressOfRoute.currentPointIdx !== args.pointIdx) {
+    if ((progressOfRoute && progressOfRoute.currentPointIdx !== args.pointIdx) || (!progressOfRoute && args.pointIdx !== 0)) {
       throw new PointIsNotAvailableYetError();
     }
 
@@ -75,11 +76,9 @@ export class UserResolver {
     return `${Math.floor(hours)}:${Math.floor(minutes).toString().padStart(2, '0')}`;
   }
 
-  @ResolveField()
+  @ResolveField(() => CompletedRouteModel)
   async completedRoutes(@Parent() user: UserModel) {
-    user;
-    //TODO: calculate it somehow???
-    return 0;
+    return user.completedRoutes;
   }
 
   @ResolveField(() => ProgressOfRouteModel, { nullable: true })

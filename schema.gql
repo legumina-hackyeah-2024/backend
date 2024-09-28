@@ -26,6 +26,12 @@ enum RouteStatus {
   Completed
 }
 
+type CompletedRouteModel {
+  routeId: String!
+  completedAt: String!
+  route: RoutesModel!
+}
+
 type UserModel {
   id: String!
   username: String!
@@ -37,7 +43,7 @@ type UserModel {
   friends: [UserModel!]!
   distance: Float!
   time: String!
-  completedRoutes: Float!
+  completedRoutes: [CompletedRouteModel!]!
   progressOfRoutes: [ProgressOfRouteModel!]!
   progressOfRoute(input: ProgresOfRouteInput!): ProgressOfRouteModel
 }

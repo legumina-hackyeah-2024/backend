@@ -4,6 +4,7 @@ import { UserAuthType } from '../enums/user-auth-type.enum';
 import { BadgeModel } from 'src/badge/models/badge.model';
 import { RouteStatus } from '../enums/route-status.enum';
 import { ProgressOfRouteModel } from './progres-of-route.model';
+import { CompletedRouteModel } from 'src/routes/models/completed-route.model';
 
 @ObjectType()
 export class UserModel {
@@ -37,8 +38,8 @@ export class UserModel {
   @Field()
   time: string;
 
-  @Field()
-  completedRoutes: number;
+  @Field(() => [CompletedRouteModel])
+  completedRoutes: CompletedRouteModel[];
 
   @Field(() => [ProgressOfRouteModel])
   progressOfRoutes: ProgressOfRouteModel[];

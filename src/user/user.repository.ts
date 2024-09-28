@@ -105,6 +105,21 @@ export class UserRepository {
   }
 
   async updateProgressOfRoute(userId: string, routeId: string, pointIdx: number): Promise<User> {
+    if (pointIdx === 0) {
+      await this.userModel.findOneAndUpdate(
+        { _id: userId },
+        {
+          $push: {
+            progressOfRoutes: {
+              routeId,
+              currentPointIdx: pointIdx + 1,
+              status: RouteStatus.InProgress,
+            },
+          },
+        },
+      );
+    }
+
     return await this.userModel.findOneAndUpdate(
       { _id: userId, 'progressOfRoutes.routeId': routeId },
       {
