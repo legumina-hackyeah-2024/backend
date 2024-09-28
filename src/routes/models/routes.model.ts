@@ -45,6 +45,9 @@ export class RoutesModel {
   @Field(() => Number)
   lng: number
 
+  @Field(() => [String])
+  facilities: string[]
+
   @Field(() => [PointModel])
   points: PointModel[]
 

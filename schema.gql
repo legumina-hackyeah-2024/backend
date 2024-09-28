@@ -58,6 +58,7 @@ type RoutesModel {
   difficulty: Int!
   lat: Float!
   lng: Float!
+  facilities: [String!]!
   points: [PointModel!]!
   hero: HeroModel!
 }
@@ -67,6 +68,7 @@ type HeroModel {
   name: String!
   description: String!
   picture: String!
+  excerpt: String!
 }
 
 type FriendRequestModel {

@@ -32,6 +32,9 @@ export class Routes {
   @Prop({ type: Number })
   lng: number
 
+  @Prop({ type: [String] })
+  facilities: string[]
+
   @Prop({
     raw: [
       {
