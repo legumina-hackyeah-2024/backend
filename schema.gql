@@ -61,8 +61,8 @@ type PointModel {
   description: String!
   lat: Float!
   lng: Float!
-  question: String!
-  answers: [String!]!
+  question: String
+  answers: [String!]
 }
 
 type RoutesModel {

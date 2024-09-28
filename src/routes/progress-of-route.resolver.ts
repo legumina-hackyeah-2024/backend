@@ -9,6 +9,7 @@ import { INPUT_KEY } from 'src/common/common.constraints';
 import { ProgresOfRouteInput } from '../user/inputs/progres-of-route.input';
 import { RoutesService } from './routes.service';
 import { PointModel, RoutesModel } from './models/routes.model';
+import { RouteStatus } from 'src/user/enums/route-status.enum';
 
 @Resolver(() => ProgressOfRouteModel)
 export class ProgressOfRouteResolver {
@@ -27,6 +28,8 @@ export class ProgressOfRouteResolver {
   ) {
     const route = await this.routeServices.findById(parent.routeId);
 
-    return route.points[parent.currentPointIdx];
+    return parent.status === RouteStatus.Completed
+      ? route.cache
+      : route.points[parent.currentPointIdx];
   }
 }

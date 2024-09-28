@@ -91,19 +91,29 @@ export class UserRepository {
     return this.userModel.findByIdAndDelete(id);
   }
 
+  async completeRoute(userId: string, routeId: string): Promise<User> {
+    return await this.userModel.findOneAndUpdate(
+      { _id: userId, 'progressOfRoutes.routeId': routeId },
+      {
+        $set: {
+          'progressOfRoutes.$.status': RouteStatus.Completed,
+          'completedRoutes': { routeId, completedAt: new Date() },
+        },
+      },
+      { returnDocument: 'after' },
+    );
+  }
+
   async updateProgressOfRoute(userId: string, routeId: string, pointIdx: number): Promise<User> {
-    const u = await this.userModel.findOneAndUpdate(
+    return await this.userModel.findOneAndUpdate(
       { _id: userId, 'progressOfRoutes.routeId': routeId },
       {
         $set: {
           'progressOfRoutes.$.currentPointIdx': pointIdx + 1,
         },
-      }
+      },
+      { returnDocument: 'after' },
     );
-
-    console.log(u)
-
-    return u;
   }
 
   async addFriend(userId: string, friendId: string) {

@@ -36,6 +36,16 @@ export class Routes {
   facilities: string[]
 
   @Prop({
+    type: {
+      title: { type: String },
+      description: { type: String },
+      lat: { type: Number },
+      lng: { type: Number },
+    }
+  })
+  cache: { title: string, description: string, lat: number, lng: number }
+
+  @Prop({
     raw: [
       {
         title: { type: String },

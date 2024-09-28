@@ -53,6 +53,16 @@ export class User {
     ]
   })
   progressOfRoutes: { routeId: string, status: RouteStatus, currentPointIdx: number }[];
+
+  @Prop({
+    raw: [
+      {
+        routeId: { type: String },
+        completedAt: { type: Date },
+      }
+    ]
+  })
+  completedRoutes: { routeId: string, completedAt: Date }[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

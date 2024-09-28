@@ -58,6 +58,10 @@ export class UserService {
     return this.repository.deleteOneById(id);
   }
 
+  async completeRoute(userId: string, routeId: string): Promise<User> {
+    return this.repository.completeRoute(userId, routeId);
+  }
+
   async updateProgressOfRoute(userId: string, routeId: string, pointIdx: number): Promise<User> {
     return this.repository.updateProgressOfRoute(userId, routeId, pointIdx);
   }

@@ -9,6 +9,9 @@ import { INPUT_KEY } from 'src/common/common.constraints';
 import { ProgresOfRouteInput } from './inputs/progres-of-route.input';
 import { AnswerInput } from './inputs/answer.input';
 import { RoutesService } from 'src/routes/routes.service';
+import { PointIsNotAvailableYetError } from './errors/point-is-not-available-yet.error';
+import { InvalidPointIndexError } from './errors/invalid-point-index.error copy';
+import { AnswerIsNotCorrectError } from './errors/answer-is-not-correct.error';
 
 @Resolver(() => UserModel)
 export class UserResolver {
@@ -32,22 +35,23 @@ export class UserResolver {
 
     const progressOfRoute = u.progressOfRoutes?.find(({ routeId }) => routeId.toString() === args.routeId);
     if (progressOfRoute.currentPointIdx && progressOfRoute.currentPointIdx !== args.pointIdx) {
-      throw new Error('You cannot solve this point yet');
+      throw new PointIsNotAvailableYetError();
     }
 
     const route = await this.routeService.findById(args.routeId);
     if (args.pointIdx < 0 || args.pointIdx >= route.points.length) {
-      throw new Error('Invalid point index');
+      throw new InvalidPointIndexError();
     }
 
     const point = route.points[args.pointIdx];
     if (point.correctAnswerIdx !== args.answerIdx) {
-      throw new Error('Invalid answer');
+      throw new AnswerIsNotCorrectError();
     }
 
-    await this.userService.updateProgressOfRoute(user._id.toString(), args.routeId, args.pointIdx + 1);
-
-    return this.userService.findOneById(user._id.toString());
+    const completed = args.pointIdx === route.points.length - 1;
+    return completed
+      ? await this.userService.completeRoute(user._id.toString(), args.routeId)
+      : await this.userService.updateProgressOfRoute(user._id.toString(), args.routeId, args.pointIdx);
   }
 
   @ResolveField()

@@ -15,10 +15,10 @@ export class PointModel {
   @Field(() => Number)
   lng: number
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   question: string
 
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   answers: string[]
 }
 
