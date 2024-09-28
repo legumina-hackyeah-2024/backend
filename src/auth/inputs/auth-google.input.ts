@@ -10,4 +10,7 @@ export class GoogleAuthInput {
   @Field({ nullable: true })
   @IsOptional()
   accessToken?: string;
+
+  @Field({ nullable: true })
+  username?: string;
 }

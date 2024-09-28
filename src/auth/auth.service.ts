@@ -9,6 +9,7 @@ import { AuthSignInResponse } from './response/auth-sign-in.response';
 import { AuthRegisterInput } from './inputs/auth-register.input';
 import { AuthLoginInput } from './inputs/auth-login.input';
 import { UserAuthType } from 'src/user/enums/user-auth-type.enum';
+import { AuthUsernameNotProvidedError } from './errors/auth-username-not-provided.error';
 
 @Injectable()
 export class AuthService {
@@ -28,6 +29,7 @@ export class AuthService {
       throw new UnauthorizedException('User with this email already exists');
     }
     const userParsed: Partial<User> = {
+      username: input.username,
       email: input.email,
       firstName: input.firstName,
       lastName: input.lastName,
@@ -51,12 +53,21 @@ export class AuthService {
     return this.tokenService.generateTokens(user._id.toString(), user.type);
   }
 
-  async googleLogin(name: string, surname: string, email: string) {
+  async googleLogin(
+    name: string,
+    surname: string,
+    email: string,
+    username?: string,
+  ) {
     const existUser = await this.userService.findOneByEmail(email);
+    if (!existUser && !username) {
+      throw new AuthUsernameNotProvidedError();
+    }
     if (!existUser) {
       const password = new Date().getTime().toString();
       const hash = await bcryptHash(password, this.config.getSaltRounds());
       const createUserPayload = {
+        username,
         email,
         name,
         surname,

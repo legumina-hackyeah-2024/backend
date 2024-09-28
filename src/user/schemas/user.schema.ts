@@ -13,6 +13,9 @@ export class User {
   email: string;
 
   @Prop({ type: String })
+  username: string;
+
+  @Prop({ type: String })
   firstName: string;
 
   @Prop({ type: String })
