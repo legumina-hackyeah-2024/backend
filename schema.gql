@@ -15,6 +15,7 @@ type BadgeModel {
 
 type UserModel {
   id: String!
+  username: String!
   email: String!
   firstName: String!
   lastName: String!
@@ -89,10 +90,12 @@ type Mutation {
 input GoogleAuthInput {
   code: String
   accessToken: String
+  username: String
 }
 
 input AuthRegisterInput {
   email: String!
+  username: String!
   password: String!
   firstName: String!
   lastName: String!

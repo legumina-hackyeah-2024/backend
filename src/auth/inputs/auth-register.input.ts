@@ -9,6 +9,10 @@ export class AuthRegisterInput {
 
   @Field()
   @IsString()
+  username: string;
+
+  @Field()
+  @IsString()
   password: string;
 
   @Field()

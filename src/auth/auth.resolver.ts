@@ -34,6 +34,7 @@ export class AuthResolver {
         userData.given_name,
         userData.family_name,
         userData.email,
+        input.username,
       );
     }
     if (input.accessToken) {
@@ -47,6 +48,7 @@ export class AuthResolver {
         userData.given_name,
         userData.family_name,
         userData.email,
+        input.username,
       );
     }
   }
