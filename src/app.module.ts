@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from './config/config.module';
 import { DatabaseConfig } from './config/database.config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { ApolloDriver } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -14,6 +14,8 @@ import { RoutesModule } from './routes/routes.module';
 import { BadgeModule } from './badge/badge.module';
 import { HeroModule } from './hero/hero.module';
 import { FriendModule } from './friend/friend.module';
+import { ValidationError } from './common/errors/business.error';
+import { BusinessErrorCode } from './common/errors/enums/business-error-code.enum';
 
 @Module({
   imports: [
@@ -22,6 +24,7 @@ import { FriendModule } from './friend/friend.module';
     BadgeModule,
     HeroModule,
     FriendModule,
+    ConfigModule,
     GraphQLModule.forRootAsync({
       imports: [ConfigModule],
       driver: ApolloDriver,
@@ -38,6 +41,23 @@ import { FriendModule } from './friend/friend.module';
       useExisting: DatabaseConfig,
     }),
   ],
-  providers: [AppResolver, { provide: APP_GUARD, useClass: JwtAuthGuard }],
+  providers: [
+    AppResolver,
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+    {
+      provide: APP_PIPE,
+      useFactory: () =>
+        new ValidationPipe({
+          transform: true,
+          exceptionFactory: ([...details]) =>
+            new ValidationError(
+              'validation failed',
+              BusinessErrorCode.VALIDATION_FAILED,
+              details,
+            ),
+        }),
+      inject: [ServerConfig],
+    },
+  ],
 })
 export class AppModule {}
