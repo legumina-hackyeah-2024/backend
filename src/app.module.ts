@@ -13,11 +13,13 @@ import { AppResolver } from './app.resolver';
 import { ServerConfig } from './config/server.config';
 import { formatError } from './utils/formatError';
 import { RoutesModule } from './routes/routes.module';
+import { BadgeModule } from './badge/badge.module';
 
 @Module({
   imports: [
     AuthModule,
     RoutesModule,
+    BadgeModule,
     GraphQLModule.forRootAsync({
       imports: [ConfigModule],
       driver: ApolloDriver,
@@ -33,15 +35,10 @@ import { RoutesModule } from './routes/routes.module';
       imports: [ConfigModule],
       useExisting: DatabaseConfig,
     }),
-    ThrottlerModule.forRootAsync({
-      imports: [ConfigModule],
-      useExisting: ThrottlerConfig,
-    }),
   ],
   providers: [
     AppResolver,
     { provide: APP_GUARD, useClass: JwtAuthGuard },
-    { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],
 })
 export class AppModule { }

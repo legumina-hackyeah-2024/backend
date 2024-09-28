@@ -8,6 +8,10 @@ import { RoutesNotFoundError } from './errors/routes-not-found.error';
 export class RoutesService {
   constructor(private readonly repository: RoutesRepository) { }
 
+  async findAll(): Promise<Routes[]> {
+    return this.repository.findAll();
+  }
+
   async findById(id: string): Promise<Routes> {
     return await this.repository.findOneById(id);
   }

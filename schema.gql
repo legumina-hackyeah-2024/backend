@@ -33,17 +33,27 @@ type RoutesModel {
   description: String!
   icon: String!
   distance: Float!
-  difficulty: Float!
+  difficulty: Int!
   lat: Float!
   lng: Float!
 }
 
+type BadgeModel {
+  id: String!
+}
+
 type Query {
   hello: String!
-  routes(input: RoutesInput!): RoutesModel!
+  routes: [RoutesModel!]!
+  route(input: RoutesInput!): RoutesModel!
+  badges(input: BadgeInput!): BadgeModel!
 }
 
 input RoutesInput {
+  id: String
+}
+
+input BadgeInput {
   id: String
 }
 
@@ -51,6 +61,7 @@ type Mutation {
   authGoogleLogin(input: GoogleAuthInput!): AuthSignInResponse!
   authRegister(input: AuthRegisterInput!): UserModel!
   authLogin(input: AuthLoginInput!): AuthSignInResponse!
+  badge(input: BadgeInput!): BadgeModel!
 }
 
 input GoogleAuthInput {

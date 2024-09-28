@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { RoutesDocument } from '../schemas/routes.schema';
 
 @ObjectType('')
@@ -15,10 +15,10 @@ export class RoutesModel {
   @Field(() => String)
   icon: string;
 
-  @Field(() => Number)
+  @Field(() => Number, { description: "Distance in kilometers" })
   distance: number
 
-  @Field(() => Number)
+  @Field(() => Int)
   difficulty: number
 
   @Field(() => Number)
