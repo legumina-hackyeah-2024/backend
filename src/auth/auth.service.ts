@@ -83,6 +83,7 @@ export class AuthService {
         email,
         hash,
         lastActivityAt: new Date(),
+        authType: [UserAuthType.Google],
       };
       const user = await this.userService.create(createUserPayload);
       const sessionToken = this.tokenService.generateSessionToken(
