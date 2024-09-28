@@ -1,0 +1,55 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AuthSignInResponse {
+  sessionToken: String!
+  refreshToken: String!
+}
+
+type UserModel {
+  id: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+  picture: String!
+  type: UserType!
+  authType: [UserAuthType!]!
+}
+
+enum UserType {
+  User
+  Admin
+}
+
+enum UserAuthType {
+  Google
+  Local
+}
+
+type Query {
+  hello: String!
+}
+
+type Mutation {
+  authGoogleLogin(input: GoogleAuthInput!): AuthSignInResponse!
+  authRegister(input: AuthRegisterInput!): UserModel!
+  authLogin(input: AuthLoginInput!): AuthSignInResponse!
+}
+
+input GoogleAuthInput {
+  code: String
+  accessToken: String
+}
+
+input AuthRegisterInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+}
+
+input AuthLoginInput {
+  email: String!
+  password: String!
+}

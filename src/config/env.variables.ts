@@ -48,6 +48,9 @@ export class EnvironmentVariables {
   @Transform(({ value }) => +value)
   REFRESH_TOKEN_EXIRES_IN_MINUTES = 60 * 24 * 7;
 
+  ENABLE_PLAYGROUND: string;
+  ENABLE_INTROSPECTION: string;
+
   @IsString()
   @IsNotEmpty()
   DATABASE_URI: string;

@@ -21,4 +21,12 @@ export class ServerConfig {
   getFrontendUrl(): string {
     return this.config.get<string>('FRONTEND_URL') || 'http://localhost:3000';
   }
+
+  getEnablePlayground(): boolean {
+    return !!this.config.get<boolean>('ENABLE_PLAYGROUND');
+  }
+
+  getEnableIntrospection(): boolean {
+    return !!this.config.get<boolean>('ENABLE_INTROSPECTION');
+  }
 }
