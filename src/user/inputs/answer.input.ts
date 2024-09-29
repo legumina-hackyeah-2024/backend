@@ -1,4 +1,4 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
 import { IsMongoId, IsNumber, IsOptional } from 'class-validator';
 
 @InputType()
@@ -7,11 +7,11 @@ export class AnswerInput {
     @IsMongoId()
     routeId: string;
 
-    @Field()
+    @Field(() => Int)
     @IsNumber()
     pointIdx: number;
 
-    @Field()
+    @Field(() => Int)
     @IsNumber()
     answerIdx: number;
 }
