@@ -12,6 +12,9 @@ export class Routes {
   heroId: string;
 
   @Prop({ type: String })
+  badgeId: string;
+
+  @Prop({ type: String })
   title: string;
 
   @Prop({ type: String })

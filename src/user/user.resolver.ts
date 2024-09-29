@@ -13,6 +13,7 @@ import { PointIsNotAvailableYetError } from './errors/point-is-not-available-yet
 import { InvalidPointIndexError } from './errors/invalid-point-index.error copy';
 import { AnswerIsNotCorrectError } from './errors/answer-is-not-correct.error';
 import { CompletedRouteModel } from 'src/routes/models/completed-route.model';
+import { RouteStatus } from './enums/route-status.enum';
 
 @Resolver(() => UserModel)
 export class UserResolver {
@@ -88,7 +89,7 @@ export class UserResolver {
   ) {
     const route = user.progressOfRoutes?.find(({ routeId }) => routeId.toString() === args.routeId);
 
-    return route ?? null;
+    return route ?? { routeId: args.routeId, currentPointIdx: 0, status: RouteStatus.InProgress };
   }
 
   @ResolveField()

@@ -97,8 +97,10 @@ export class UserRepository {
       {
         $set: {
           'progressOfRoutes.$.status': RouteStatus.Completed,
-          'completedRoutes': { routeId, completedAt: new Date() },
         },
+        $push: {
+          completedRoutes: { routeId, completedAt: new Date() },
+        }
       },
       { returnDocument: 'after' },
     );

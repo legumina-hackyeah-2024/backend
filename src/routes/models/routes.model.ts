@@ -31,6 +31,9 @@ export class RoutesModel {
   heroId: string;
 
   @Field(() => String)
+  badgeId: string;
+
+  @Field(() => String)
   title: string;
 
   @Field(() => String)
